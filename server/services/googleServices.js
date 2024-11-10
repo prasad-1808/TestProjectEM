@@ -1,10 +1,12 @@
+require('dotenv').config();  // Load environment variables from .env file
+
 const { google } = require('googleapis');
 
-// OAuth2 Client setup
+// OAuth2 Client setup using environment variables
 const oauth2Client = new google.auth.OAuth2(
-  CLIENT_ID='967975471794-bv5lnmcjnvts2j9qbialf8ch8i2a32s5.apps.googleusercontent.com',
-  CLIENT_SECRET='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',
-  REDIRECT_URI='http://localhost:3000/redirect'
+  process.env.CLIENT_ID,
+  process.env.CLIENT_SECRET,
+  process.env.REDIRECT_URI
 );
 
 const drive = google.drive({ version: 'v3', auth: oauth2Client });
