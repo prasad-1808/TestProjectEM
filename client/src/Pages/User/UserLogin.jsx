@@ -18,36 +18,37 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const userResponse = await api.get(`/users/${mobileNumber}`);
-      if (userResponse.status === 200) {
-        const user = userResponse.data;
-        if (user.role !== "employee") {
-          toast.error("Access restricted to employees only");
-          return;
-        }
-        try {
-          const response = await api.post("/users/login", {
-            mobileNumber,
-            password,
-            role,
-          });
-          if (response.status === 200) {
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("userId", user.userId);
-            localStorage.setItem("role", user.role);
-            setIsLoggedIn(true);
-            navigate("/dashboard");
-          }
-        } catch {
-          toast.error("Invalid Mobile Number, Password, or Role");
-        }
-      } else {
-        toast.error("User not found");
+      // Send a POST request to the login API with mobileNumber, password, and userType
+      const response = await api.post("/users/login", {
+        mobileNumber,
+        password,
+        userType: role, // Send userType (role) here
+      });
+
+      console.log(response);
+
+      // Check if login was successful
+      if (response.status === 200) {
+        // Store the token and userType in localStorage
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userType", response.data.userType); // Store userType (role)
+
+        toast.success("Login successful!");
+
+        // Redirect the user to the home page or another protected page
+        navigate("/home");
       }
     } catch (error) {
-      toast.error("An error occurred during login. Please try again.");
-      console.error(error);
+      if (error.response && error.response.status === 404) {
+        toast.error("User not found. Please check your mobile number.");
+      } else if (error.response && error.response.status === 401) {
+        toast.error("Invalid credentials or role. Please try again.");
+      } else {
+        toast.error("An error occurred during login. Please try again.");
+      }
+      console.error("Login error:", error);
     }
   };
 

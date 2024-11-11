@@ -28,13 +28,20 @@ const createUser = async (req, res) => {
 
 // Log in a user
 const loginUser = async (req, res) => {
-  const { mobileNumber, password } = req.body;
+  const { mobileNumber, password, userType } = req.body;
   try {
-    const user = await prisma.user.findUnique({ where: { mobileNumber } });
+    const user = await prisma.User.findUnique({ where: { mobileNumber } });
+    // Check if the user exists
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // Check if the provided userType matches the user's role
+    if (user.userType !== userType) {
+      return res.status(401).json({ error: "Invalid role selected" });
+    }
+
+    // Validate the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid credentials" });
@@ -44,7 +51,13 @@ const loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
       expiresIn: "1h",
     });
-    res.json({ message: "Login successful", token });
+
+    // Respond with token and userType (role)
+    res.json({
+      message: "Login successful",
+      token,
+      userType: user.userType, // Send userType back in the response
+    });
   } catch (error) {
     res.status(500).json({ error: "Error logging in" });
   }
@@ -55,7 +68,7 @@ const editUser = async (req, res) => {
   const { userId } = req.params;
   const { firstName, lastName, mobileNumber, emailId, userType } = req.body;
   try {
-    const user = await prisma.user.update({
+    const user = await prisma.User.update({
       where: { id: parseInt(userId) },
       data: {
         firstName,

@@ -1,5 +1,4 @@
-// src/App.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -13,11 +12,20 @@ import UserProfile from "./Pages/User/UserProfile";
 import EventAlbum from "./Pages/Event/EventAlbum";
 import EventMemories from "./Pages/Event/EventMemories";
 import GoogleSignup from "./Components/GoogleSignup";
+import GoogleDriveFileList from "./Components/GoogleDriveFileList";
+import TokenHandler from "./Components/TokenHandler";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Control login state here
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Protected route component
+  useEffect(() => {
+    // Maintain login state across page refreshes
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   const ProtectedRoute = ({ children }) => {
     return isLoggedIn ? children : <Navigate to="/login" />;
   };
@@ -26,17 +34,29 @@ function App() {
     <Router>
       <div className="App">
         <h1>Google Drive Integration App</h1>
-        <GoogleSignup />
+        {localStorage.getItem("access_token") ? (
+          <></>
+        ) : (
+          <GoogleSignup setIsLoggedIn={setIsLoggedIn} />
+        )}
         <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Home />} />
+          {/* TokenHandler route to handle login and token extraction */}
+          <Route
+            path="/"
+            element={
+              <>
+                <TokenHandler setIsLoggedIn={setIsLoggedIn} />
+                <Home />
+              </>
+            }
+          />
+
           <Route
             path="/login"
             element={<UserLogin setIsLoggedIn={setIsLoggedIn} />}
           />
           <Route path="/register" element={<UserRegister />} />
 
-          {/* Protected Routes */}
           <Route
             path="/event-album"
             element={
@@ -61,7 +81,15 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* Redirect unknown paths to Home */}
+          <Route
+            path="/drive-files"
+            element={
+              <GoogleDriveFileList />
+              // <ProtectedRoute>
+              // </ProtectedRoute>
+            }
+          />
+
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

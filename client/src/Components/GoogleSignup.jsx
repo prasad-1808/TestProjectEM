@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import api from "../services/api";
 
 function GoogleSignup() {
-  const [authUrl, setAuthUrl] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [folders, setFolders] = useState([]);
   const [files, setFiles] = useState([]);
@@ -11,23 +10,14 @@ function GoogleSignup() {
     handleRedirect();
   }, []);
 
-  // Get the Google OAuth URL
-  const getAuthUrl = async () => {
-    try {
-      const response = await api.get("/auth-url");
-      console.log("Auth URL:", response.data.url); // Debug line
-      setAuthUrl(response.data.url);
-    } catch (error) {
-      console.error("Error fetching auth URL:", error);
-    }
-  };
-
-  // Handle redirect after Google login
+  // Handle redirect after Google login (check for code in URL)
   const handleRedirect = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
+
     if (code) {
       try {
+        // Send the authorization code to the backend to get tokens
         const response = await api.post("/get-tokens", { code });
         setAccessToken(response.data.access_token);
         localStorage.setItem("token", response.data.access_token);
@@ -42,7 +32,6 @@ function GoogleSignup() {
   const listFolders = async () => {
     try {
       const response = await api.get("/list-folders");
-      console.log("Folders:", response.data); // Debug line
       setFolders(response.data);
     } catch (error) {
       console.error("Error listing folders:", error);
@@ -53,7 +42,6 @@ function GoogleSignup() {
   const listFiles = async (folderId) => {
     try {
       const response = await api.get(`/list-files/${folderId}`);
-      console.log("Files in folder:", response.data); // Debug line
       setFiles(response.data);
     } catch (error) {
       console.error("Error listing files:", error);
@@ -65,8 +53,10 @@ function GoogleSignup() {
       <h2>Google Drive Integration</h2>
       {!accessToken ? (
         <div>
-          <button onClick={getAuthUrl}>Sign in with Google</button>
-          {authUrl && <a href={authUrl}>Login with Google</a>}
+          {/* Redirect to backend for Google OAuth login */}
+          <a href="http://localhost:5000/api/auth/google">
+            Sign in with Google
+          </a>
         </div>
       ) : (
         <div>
