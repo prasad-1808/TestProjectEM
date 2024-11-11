@@ -1,5 +1,5 @@
 // src/services/api.js
-const axios = require("axios");
+import axios from "axios"; // Use import instead of require
 
 // Create an instance of axios
 const api = axios.create({
@@ -15,4 +15,4 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-module.exports = api;
+export default api; // Use export default instead of module.exports

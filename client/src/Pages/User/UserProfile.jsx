@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import "../../assets/UserProfile.css";
+import "./../../assests/UserProfile.css";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
