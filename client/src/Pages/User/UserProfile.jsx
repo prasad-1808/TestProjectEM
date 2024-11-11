@@ -3,7 +3,6 @@ import api from "../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaRegCircleUser } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 import "./../../assests/UserProfile.css";
 
 const UserProfile = () => {
@@ -21,7 +20,6 @@ const UserProfile = () => {
   const [error, setError] = useState(null);
 
   const userId = localStorage.getItem("userId");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -81,10 +79,6 @@ const UserProfile = () => {
     } catch (err) {
       toast.error("Failed to update profile");
     }
-  };
-
-  const handleAddSkillClick = () => {
-    navigate("/add-skill");
   };
 
   if (loading) return <p>Loading...</p>;
