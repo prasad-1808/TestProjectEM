@@ -1,10 +1,15 @@
-// server/routes/userRoutes.js
 const express = require("express");
-const { createUser } = require("../controllers/userController");
+const {
+  createUser,
+  loginUser,
+  editUser,
+} = require("../controllers/userController");
 
 const router = express.Router();
 
 // User routes
-router.post('/users', createUser); // Create a new user
+router.post("/register", createUser); // Create a new user
+router.post("/login", loginUser); // Log in a user
+router.put("/edit/:userId", editUser); // Edit a user
 
 module.exports = router;
