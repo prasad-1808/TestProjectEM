@@ -1,0 +1,169 @@
+/* styles.css */
+
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Gradient background for main container */
+  .bg-gradient-to-b {
+    background: linear-gradient(to bottom, #f3e5f5, #fce4ec);
+  }
+  
+  /* Hero Section */
+  .hero {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    text-align: center;
+  }
+  
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #4a4a4a;
+  }
+  
+  .hero p {
+    font-size: 1.25rem;
+    color: #4a4a4a;
+  }
+  
+  /* Button Styles */
+  button {
+    padding: 12px 32px;
+    border-radius: 9999px;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+  }
+  
+  button.bg-purple-600 {
+    background-color: #7e57c2;
+    color: white;
+  }
+  
+  button.bg-purple-600:hover {
+    background-color: #6a4fa1;
+  }
+  
+  button.bg-purple-700 {
+    background-color: #5e35b1;
+  }
+  
+  /* Card Styling for Features */
+  .feature-card {
+    background-color: #f3e5f5;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-card h3 {
+    font-size: 1.25rem;
+    color: #4a4a4a;
+    margin-bottom: 12px;
+  }
+  
+  .feature-card p {
+    color: #757575;
+  }
+  
+  /* Image Section */
+  .img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  
+  .img-container img {
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Pricing Cards */
+  .pricing-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .pricing-card.highlighted {
+    border: 2px solid #7e57c2;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pricing-card h3 {
+    font-size: 1.5rem;
+    color: #4a4a4a;
+    margin-bottom: 16px;
+  }
+  
+  .pricing-card p {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #7e57c2;
+  }
+  
+  .pricing-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .pricing-card ul li {
+    font-size: 1rem;
+    color: #757575;
+    margin-bottom: 12px;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #424242;
+    color: white;
+    padding: 32px 0;
+  }
+  
+  footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  footer .footer-content a {
+    color: #7e57c2;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  footer .footer-content a:hover {
+    color: white;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+  
+    .feature-card {
+      padding: 16px;
+    }
+  
+    .pricing-card {
+      padding: 24px;
+    }
+  
+    footer .footer-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+  
