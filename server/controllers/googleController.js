@@ -27,12 +27,9 @@ exports.handleGoogleAuthCallback = async (req, res) => {
     const { tokens } = await oauth2Client.getToken(code);
     oauth2Client.setCredentials(tokens);
 
-    // Optionally, store the tokens in your session or database here
-    // For now, we're just sending them back to the frontend
-    console.log(`http://localhost:3000?access_token=${tokens.access_token}`);
-    res.session('google_access_token', tokens.access_token);
+    // Store the access token in the session
+    req.session.google_access_token = tokens.access_token;
     res.redirect(`http://localhost:3000?access_token=${tokens.access_token}`);
-    // You could also store the tokens in a session or a secure cookie for later use.
   } catch (error) {
     console.error("Error exchanging code for tokens:", error);
     res.status(400).json({ error: error.message });
@@ -62,6 +59,7 @@ exports.listFilesInFolder = async (req, res) => {
   }
 };
 
+// Controller to get all files in Google Drive
 exports.getAllFiles = async (req, res) => {
   try {
     // Get access token from the request (from the frontend)
