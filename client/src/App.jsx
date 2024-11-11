@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -5,6 +6,7 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+import Navbar from "./Components/Navbar"; // Import the Navbar component
 import Home from "./Pages/Home";
 import UserLogin from "./Pages/User/UserLogin";
 import UserRegister from "./Pages/User/UserRegister";
@@ -19,7 +21,6 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Maintain login state across page refreshes
     const token = localStorage.getItem("access_token");
     if (token) {
       setIsLoggedIn(true);
@@ -33,14 +34,13 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <h1>Google Drive Integration App</h1>
+        <Navbar isLoggedIn={isLoggedIn} /> {/* Render Navbar */}
         {localStorage.getItem("access_token") ? (
           <></>
         ) : (
           <GoogleSignup setIsLoggedIn={setIsLoggedIn} />
         )}
         <Routes>
-          {/* TokenHandler route to handle login and token extraction */}
           <Route
             path="/"
             element={
@@ -50,13 +50,11 @@ function App() {
               </>
             }
           />
-
           <Route
             path="/login"
             element={<UserLogin setIsLoggedIn={setIsLoggedIn} />}
           />
           <Route path="/register" element={<UserRegister />} />
-
           <Route
             path="/event-album"
             element={
@@ -81,15 +79,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/drive-files"
-            element={
-              <GoogleDriveFileList />
-              // <ProtectedRoute>
-              // </ProtectedRoute>
-            }
-          />
-
+          <Route path="/drive-files" element={<GoogleDriveFileList />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

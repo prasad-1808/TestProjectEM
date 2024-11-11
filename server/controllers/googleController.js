@@ -30,6 +30,7 @@ exports.handleGoogleAuthCallback = async (req, res) => {
     // Optionally, store the tokens in your session or database here
     // For now, we're just sending them back to the frontend
     console.log(`http://localhost:3000?access_token=${tokens.access_token}`);
+    res.session('google_access_token', tokens.access_token);
     res.redirect(`http://localhost:3000?access_token=${tokens.access_token}`);
     // You could also store the tokens in a session or a secure cookie for later use.
   } catch (error) {
