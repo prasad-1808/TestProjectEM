@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
     req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await prisma.user.create({
+    const user = await prisma.User.create({
       data: {
         firstName,
         lastName,
@@ -28,9 +28,9 @@ const createUser = async (req, res) => {
 
 // Log in a user
 const loginUser = async (req, res) => {
-  const { emailId, password } = req.body;
+  const { mobileNumber, password } = req.body;
   try {
-    const user = await prisma.user.findUnique({ where: { emailId } });
+    const user = await prisma.user.findUnique({ where: { mobileNumber } });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }

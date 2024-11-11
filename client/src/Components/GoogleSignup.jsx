@@ -1,6 +1,5 @@
-// src/Components/GoogleSignup.jsx
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../services/api";
 
 function GoogleSignup() {
   const [authUrl, setAuthUrl] = useState("");
@@ -8,10 +7,19 @@ function GoogleSignup() {
   const [folders, setFolders] = useState([]);
   const [files, setFiles] = useState([]);
 
+  useEffect(() => {
+    handleRedirect();
+  }, []);
+
   // Get the Google OAuth URL
   const getAuthUrl = async () => {
-    const response = await axios.get("http://localhost:5000/api/auth-url");
-    setAuthUrl(response.data.url);
+    try {
+      const response = await api.get("/auth-url");
+      console.log("Auth URL:", response.data.url); // Debug line
+      setAuthUrl(response.data.url);
+    } catch (error) {
+      console.error("Error fetching auth URL:", error);
+    }
   };
 
   // Handle redirect after Google login
@@ -19,37 +27,38 @@ function GoogleSignup() {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
     if (code) {
-      const response = await axios.post(
-        "http://localhost:5000/api/get-tokens",
-        { code }
-      );
-      setAccessToken(response.data.access_token);
+      try {
+        const response = await api.post("/get-tokens", { code });
+        setAccessToken(response.data.access_token);
+        localStorage.setItem("token", response.data.access_token);
+        console.log("Access Token Retrieved:", response.data.access_token); // Debug line
+      } catch (error) {
+        console.error("Error fetching tokens:", error);
+      }
     }
   };
 
   // List folders in Google Drive
   const listFolders = async () => {
-    const response = await axios.get("http://localhost:5000/api/list-folders", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-    setFolders(response.data);
+    try {
+      const response = await api.get("/list-folders");
+      console.log("Folders:", response.data); // Debug line
+      setFolders(response.data);
+    } catch (error) {
+      console.error("Error listing folders:", error);
+    }
   };
 
   // List files in a specific folder
   const listFiles = async (folderId) => {
-    const response = await axios.get(
-      `http://localhost:5000/api/list-files/${folderId}`,
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
-    setFiles(response.data);
+    try {
+      const response = await api.get(`/list-files/${folderId}`);
+      console.log("Files in folder:", response.data); // Debug line
+      setFiles(response.data);
+    } catch (error) {
+      console.error("Error listing files:", error);
+    }
   };
-
-  // Run handleRedirect on initial render
-  useEffect(() => {
-    handleRedirect();
-  }, []);
 
   return (
     <div className="GoogleSignup">
