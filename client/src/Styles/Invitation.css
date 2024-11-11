@@ -1,0 +1,144 @@
+/* Home Page Container Styling */
+.home-page {
+    font-family: 'Playfair Display', serif;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Hero Section Styling */
+  .hero {
+    background-image: url('../assests/images/invitation_background.jpg?height=600&width=1200');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .couple-names {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .wedding-date {
+    font-size: 2rem;
+    font-weight: 300;
+  }
+  
+  /* Main Content Styling */
+  .main-content {
+    padding: 4rem 0;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #4a4a4a;
+  }
+  
+  /* Event Details Section */
+  .event-details {
+    margin-top: 2rem;
+  }
+  
+  .detail-item {
+    text-align: center;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .detail-item:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detail-item h3 {
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    color: #333;
+  }
+  
+  .event-details .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #d4af37;
+  }
+  
+  /* RSVP Button */
+  .rsvp-button {
+    padding: 0.75rem 3rem;
+    font-size: 1.25rem;
+    border-width: 2px;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    color: #333;
+  }
+  
+  .rsvp-button:hover {
+    background-color: #d4af37;
+    border-color: #d4af37;
+    color: #fff;
+  }
+  
+  /* Our Story Section */
+  .text-center h2.section-title {
+    color: #333;
+  }
+  
+  .text-center p.lead {
+    color: #666;
+    font-size: 1.125rem;
+  }
+  
+  /* Photo Gallery Styling */
+  .photo-gallery img {
+    transition: transform 0.3s ease;
+    border-radius: 8px;
+  }
+  
+  .photo-gallery img:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Footer Styling */
+  footer {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+    font-size: 1.125rem;
+  }
+  
+  footer .heart {
+    color: #ff6b6b;
+    margin: 0 0.5rem;
+  }
+  
+  /* Media Query Adjustments */
+  @media (max-width: 768px) {
+    .couple-names {
+      font-size: 3rem;
+    }
+  
+    .wedding-date {
+      font-size: 1.5rem;
+    }
+  
+    .section-title {
+      font-size: 2rem;
+    }
+  
+    .detail-item {
+      padding: 1.5rem;
+    }
+  
+    .rsvp-button {
+      padding: 0.75rem 2rem;
+      font-size: 1.125rem;
+    }
+  }
+  

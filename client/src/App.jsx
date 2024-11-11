@@ -7,13 +7,14 @@ import {
   Navigate,
 } from "react-router-dom";
 import Navbar from "./Components/Navbar"; // Import the Navbar component
+// import Invitation from "./Pages/Invitation";
 import Home from "./Pages/Home";
 import UserLogin from "./Pages/User/UserLogin";
 import UserRegister from "./Pages/User/UserRegister";
 import UserProfile from "./Pages/User/UserProfile";
 import EventAlbum from "./Pages/Event/EventAlbum";
 import EventMemories from "./Pages/Event/EventMemories";
-import GoogleSignup from "./Components/GoogleSignup";
+// import GoogleSignup from "./Components/GoogleSignup";
 import GoogleDriveFileList from "./Components/GoogleDriveFileList";
 import TokenHandler from "./Components/TokenHandler";
 
@@ -38,7 +39,8 @@ function App() {
         {localStorage.getItem("access_token") ? (
           <></>
         ) : (
-          <GoogleSignup setIsLoggedIn={setIsLoggedIn} />
+          // <GoogleSignup setIsLoggedIn={setIsLoggedIn} />
+          <></>
         )}
         <Routes>
           <Route

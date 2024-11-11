@@ -10,11 +10,11 @@ const UserProfile = () => {
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
     userId: "",
-    firstname: "",
-    lastname: "",
-    role: "",
-    yearOfJoining: "",
-    status: false,
+    firstName: "",
+    lastName: "",
+    mobileNumber: "",
+    emailId: "",
+    userType: "",
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,15 +26,15 @@ const UserProfile = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await api.get(`users/${userId}`);
+        const response = await api.get(`/users/${userId}`);
         setUser(response.data);
         setFormData({
           userId: response.data.userId,
-          firstname: response.data.firstname,
-          lastname: response.data.lastname,
-          role: response.data.role,
-          yearOfJoining: response.data.yearOfJoining,
-          status: response.data.status,
+          firstName: response.data.firstName,
+          lastName: response.data.lastName,
+          mobileNumber: response.data.mobileNumber,
+          emailId: response.data.emailId,
+          userType: response.data.userType,
         });
       } catch (err) {
         setError("Failed to fetch user data");
@@ -42,7 +42,6 @@ const UserProfile = () => {
         setLoading(false);
       }
     };
-
     fetchUserData();
   }, [userId, editing]);
 
@@ -61,13 +60,14 @@ const UserProfile = () => {
   const handleSave = async () => {
     try {
       const updatedData = {
-        firstname: formData.firstname,
-        lastname: formData.lastname,
-        role: formData.role,
-        yearOfJoining: formData.yearOfJoining,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        mobileNumber: formData.mobileNumber,
+        emailId: formData.emailId,
+        userType: formData.userType,
       };
 
-      await api.put(`/users/${userId}`, updatedData);
+      await api.put(`/users/edit/${userId}`, updatedData);
       toast.success("Profile updated successfully");
 
       setUser((prevUser) => ({
@@ -94,56 +94,69 @@ const UserProfile = () => {
           {editing ? (
             <div>
               <div className="form-group">
-                <label htmlFor="firstname" style={{ color: "white" }}>
+                <label htmlFor="firstName" style={{ color: "white" }}>
                   First Name:
                 </label>
                 <input
                   type="text"
-                  id="firstname"
-                  name="firstname"
+                  id="firstName"
+                  name="firstName"
                   autoComplete="off"
                   className="form-control"
-                  value={formData.firstname}
+                  value={formData.firstName}
                   onChange={handleChange}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="lastname" style={{ color: "white" }}>
+                <label htmlFor="lastName" style={{ color: "white" }}>
                   Last Name:
                 </label>
                 <input
                   type="text"
-                  id="lastname"
-                  name="lastname"
+                  id="lastName"
+                  name="lastName"
                   autoComplete="off"
                   className="form-control"
-                  value={formData.lastname}
+                  value={formData.lastName}
                   onChange={handleChange}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="role" style={{ color: "white" }}>
-                  Role:
+                <label htmlFor="mobileNumber" style={{ color: "white" }}>
+                  Mobile Number:
                 </label>
                 <input
                   type="text"
-                  id="role"
-                  name="role"
+                  id="mobileNumber"
+                  name="mobileNumber"
                   className="form-control"
-                  value={formData.role}
+                  value={formData.mobileNumber}
                   onChange={handleChange}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="yearOfJoining" style={{ color: "white" }}>
-                  Year of Joining:
+                <label htmlFor="emailId" style={{ color: "white" }}>
+                  Email ID:
                 </label>
                 <input
-                  type="number"
-                  id="yearOfJoining"
-                  name="yearOfJoining"
+                  type="email"
+                  id="emailId"
+                  name="emailId"
                   className="form-control"
-                  value={formData.yearOfJoining}
+                  value={formData.emailId}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="userType" style={{ color: "white" }}>
+                  User Type:
+                </label>
+                <input
+                  type="text"
+                  id="userType"
+                  name="userType"
+                  className="form-control"
+                  value={formData.userType}
                   onChange={handleChange}
                 />
               </div>
@@ -187,23 +200,23 @@ const UserProfile = () => {
                     </tr>
                     <tr>
                       <td className="fw-bold">First Name</td>
-                      <td>{user.firstname}</td>
+                      <td>{user.firstName}</td>
                     </tr>
                     <tr>
                       <td className="fw-bold">Last Name</td>
-                      <td>{user.lastname}</td>
+                      <td>{user.lastName}</td>
                     </tr>
                     <tr>
-                      <td className="fw-bold">Role</td>
-                      <td>{user.role}</td>
+                      <td className="fw-bold">Mobile Number</td>
+                      <td>{user.mobileNumber}</td>
                     </tr>
                     <tr>
-                      <td className="fw-bold">Year of Joining</td>
-                      <td>{user.yearOfJoining}</td>
+                      <td className="fw-bold">Email ID</td>
+                      <td>{user.emailId}</td>
                     </tr>
                     <tr>
-                      <td className="fw-bold">Status</td>
-                      <td>{user.status ? "Active" : "Inactive"}</td>
+                      <td className="fw-bold">User Type</td>
+                      <td>{user.userType}</td>
                     </tr>
                   </tbody>
                 </table>
