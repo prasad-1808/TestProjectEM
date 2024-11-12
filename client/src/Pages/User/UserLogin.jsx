@@ -31,9 +31,9 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userType", response.data.userType);
-
+        setIsLoggedIn(!isLoggedIn);
         toast.success("Login successful!");
-        navigate("/home");
+        navigate("/invitation");
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
