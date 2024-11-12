@@ -2,7 +2,7 @@ import React from "react";
 import { Heart, Calendar, MapPin } from "lucide-react";
 
 const Invitation = () => (
-  <div className="font-serif text-gray-800 leading-relaxed">
+  <div className="pt-20 font-serif text-gray-800 leading-relaxed">
     <header className="bg-cover bg-center h-screen flex flex-col justify-center items-center text-center text-white shadow-[inset_0_0_0_1000px_rgba(0,0,0,0.5)]">
       <h1 className="text-6xl mb-2 font-bold">Emily & Michael</h1>
       <p className="text-4xl font-light">August 15, 2024</p>

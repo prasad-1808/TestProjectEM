@@ -1,52 +1,13 @@
 import React from "react";
-// import Image from "next/image";
 import { Link } from "react-router-dom";
 
-import { Camera, Heart, Share2, Users, Star } from "lucide-react";
+import { Heart, Share2, Users, Star } from "lucide-react";
 import { Button } from "../Components/ui/Button.tsx";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-100 to-pink-100">
-      <header className="bg-white shadow-md">
-        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <Camera className="h-8 w-8 text-purple-600" />
-            <span className="text-2xl font-bold text-gray-800">
-              MemoryKeeper
-            </span>
-          </div>
-          <nav>
-            <ul className="flex space-x-6">
-              <li>
-                <Link
-                  to="#features"
-                  className="text-gray-600 hover:text-purple-600 transition duration-300"
-                >
-                  Features
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="#pricing"
-                  className="text-gray-600 hover:text-purple-600 transition duration-300"
-                >
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="#contact"
-                  className="text-gray-600 hover:text-purple-600 transition duration-300"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-gradient-to-b from-purple-100 to-pink-100 pt-20">
+      {/* Padding added to offset fixed Navbar */}
       <main>
         <section className="hero container mx-auto px-4 py-20 text-center">
           <h1 className="text-5xl font-bold text-gray-800 mb-6">
@@ -91,13 +52,7 @@ export default function Home() {
         <section className="bg-purple-100 py-20">
           <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 mb-8 md:mb-0">
-              {/* <Image
-                src="/placeholder.svg?height=400&width=600"
-                alt="Event album preview"
-                width={600}
-                height={400}
-                className="rounded-lg shadow-lg"
-              /> */}
+              {/* Placeholder for Image */}
             </div>
             <div className="md:w-1/2 md:pl-12">
               <h2 className="text-3xl font-bold text-gray-800 mb-6">

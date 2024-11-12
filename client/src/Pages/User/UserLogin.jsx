@@ -48,8 +48,8 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
   };
 
   return (
-    <div className="container-fluid flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-100">
-      <div className="card max-w-lg w-full p-8 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-500 shadow-2xl transform transition-all duration-300 ease-in-out hover:scale-105 animate-fadeIn">
+    <div className="pt-20 container-fluid flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-100">
+      <div className="card max-w-lg w-full p-8 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-500 shadow-2xl transform transition-all duration-300 ease-in-out animate-fadeIn">
         <h2 className="text-center mb-6 text-2xl font-bold text-white">
           User Login
         </h2>

@@ -9,7 +9,7 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
   const [lastName, setLastName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [emailId, setEmailId] = useState("");
-  const [userType, setUserType] = useState("wedding_party");
+  const [userType, setUserType] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
@@ -61,8 +61,8 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100">
-      <div className="max-w-md w-full p-8 bg-gradient-to-br from-purple-600 to-pink-500 rounded-2xl shadow-2xl transform transition-all duration-300 ease-in-out hover:scale-105 animate-fadeIn">
+    <div className="pt-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100">
+      <div className="max-w-md w-full p-8 bg-gradient-to-br from-purple-600 to-pink-500 rounded-2xl shadow-2xl transform transition-all duration-300 ease-in-out animate-fadeIn">
         <h2 className="text-3xl font-bold text-center text-white mb-6">
           User Register
         </h2>
@@ -74,7 +74,7 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             <input
               type="text"
               id="firstName"
-              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -88,7 +88,7 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             <input
               type="text"
               id="lastName"
-              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
@@ -102,7 +102,7 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             <input
               type="text"
               id="mobileNumber"
-              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Mobile Number"
               value={mobileNumber}
               onChange={(e) => setMobileNumber(e.target.value)}
@@ -116,7 +116,7 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             <input
               type="email"
               id="emailId"
-              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Email ID"
               value={emailId}
               onChange={(e) => setEmailId(e.target.value)}
@@ -129,11 +129,12 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             </label>
             <select
               id="userType"
-              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
               value={userType}
               onChange={(e) => setUserType(e.target.value)}
               required
             >
+              <option value="">Select Role</option>
               <option value="wedding_party">Wedding Party</option>
               <option value="relative">Relative</option>
             </select>
@@ -145,7 +146,7 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             <input
               type="password"
               id="password"
-              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -159,7 +160,7 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             <input
               type="password"
               id="confirmPassword"
-              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Confirm your Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}

@@ -84,7 +84,7 @@ const UserProfile = () => {
   if (error) return <p className="text-center mt-8 text-red-500">{error}</p>;
 
   return (
-    <div className="container mx-auto px-4 mt-28">
+    <div className="pt-24 container mx-auto px-4 mt-28">
       <h2 className="text-center mb-8 text-3xl font-bold text-purple-600">
         User Profile
       </h2>
