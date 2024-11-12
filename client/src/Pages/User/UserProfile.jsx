@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaRegCircleUser } from "react-icons/fa6";
-import "./../../assests/UserProfile.css";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -81,20 +80,20 @@ const UserProfile = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p className="text-danger">{error}</p>;
+  if (loading) return <p className="text-center mt-8">Loading...</p>;
+  if (error) return <p className="text-center mt-8 text-red-500">{error}</p>;
 
   return (
-    <div className="container-fluid profile p-4" style={{ marginTop: "7rem" }}>
-      <h2 className="text-center mb-4" style={{ color: "#b11aa4" }}>
+    <div className="container mx-auto px-4 mt-28">
+      <h2 className="text-center mb-8 text-3xl font-bold text-purple-600">
         User Profile
       </h2>
-      <div className="card shadow-lg" style={{ borderRadius: "15px" }}>
-        <div className="card-body">
+      <div className="bg-gradient-to-br from-purple-600 to-pink-500 rounded-2xl shadow-lg p-6">
+        <div className="bg-white bg-opacity-10 rounded-xl p-6">
           {editing ? (
-            <div>
-              <div className="form-group">
-                <label htmlFor="firstName" style={{ color: "white" }}>
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="firstName" className="block text-white mb-1">
                   First Name:
                 </label>
                 <input
@@ -102,13 +101,13 @@ const UserProfile = () => {
                   id="firstName"
                   name="firstName"
                   autoComplete="off"
-                  className="form-control"
+                  className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
                   value={formData.firstName}
                   onChange={handleChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="lastName" style={{ color: "white" }}>
+              <div>
+                <label htmlFor="lastName" className="block text-white mb-1">
                   Last Name:
                 </label>
                 <input
@@ -116,137 +115,96 @@ const UserProfile = () => {
                   id="lastName"
                   name="lastName"
                   autoComplete="off"
-                  className="form-control"
+                  className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
                   value={formData.lastName}
                   onChange={handleChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="mobileNumber" style={{ color: "white" }}>
+              <div>
+                <label htmlFor="mobileNumber" className="block text-white mb-1">
                   Mobile Number:
                 </label>
                 <input
                   type="text"
                   id="mobileNumber"
                   name="mobileNumber"
-                  className="form-control"
+                  className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
                   value={formData.mobileNumber}
                   onChange={handleChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="emailId" style={{ color: "white" }}>
+              <div>
+                <label htmlFor="emailId" className="block text-white mb-1">
                   Email ID:
                 </label>
                 <input
                   type="email"
                   id="emailId"
                   name="emailId"
-                  className="form-control"
+                  className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
                   value={formData.emailId}
                   onChange={handleChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="userType" style={{ color: "white" }}>
+              <div>
+                <label htmlFor="userType" className="block text-white mb-1">
                   User Type:
                 </label>
                 <input
                   type="text"
                   id="userType"
                   name="userType"
-                  className="form-control"
+                  className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
                   value={formData.userType}
                   onChange={handleChange}
                 />
               </div>
-              <center>
+              <div className="text-center">
                 <button
-                  className="custom-button d-inline-flex align-items-center mt-3"
-                  style={{
-                    backgroundColor: "white",
-                    color: "#ff69b4",
-                    padding: "10px 20px",
-                    borderRadius: "8px",
-                    fontWeight: "bold",
-                    textTransform: "uppercase",
-                    display: "inline-block",
-                    transform: "skewX(-15deg)",
-                    boxShadow: "0 8px 15px rgba(0, 0, 0, 0.15)",
-                    marginLeft: "15px",
-                  }}
+                  className="mt-4 px-6 py-2 bg-white text-pink-500 font-bold uppercase rounded-lg transform -skew-x-12 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
                   onClick={handleSave}
                 >
-                  <span style={{ transform: "skewX(15deg)", color: "#ff69b4" }}>
-                    Save
-                  </span>
+                  <span className="inline-block transform skew-x-12">Save</span>
                 </button>
-              </center>
+              </div>
             </div>
           ) : (
             <div>
-              <center>
-                <FaRegCircleUser
-                  className="profile-pic-icon"
-                  style={{ fontSize: "3rem", color: "#fffff" }}
-                />
-              </center>
-              <div className="card-body rounded">
-                <table className="table table-bordered rounded user-profile-table">
+              <div className="text-center mb-6">
+                <FaRegCircleUser className="inline-block text-6xl text-white" />
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-white">
                   <tbody>
-                    <tr>
-                      <td className="fw-bold">User ID</td>
-                      <td>{user.userId}</td>
-                    </tr>
-                    <tr>
-                      <td className="fw-bold">First Name</td>
-                      <td>{user.firstName}</td>
-                    </tr>
-                    <tr>
-                      <td className="fw-bold">Last Name</td>
-                      <td>{user.lastName}</td>
-                    </tr>
-                    <tr>
-                      <td className="fw-bold">Mobile Number</td>
-                      <td>{user.mobileNumber}</td>
-                    </tr>
-                    <tr>
-                      <td className="fw-bold">Email ID</td>
-                      <td>{user.emailId}</td>
-                    </tr>
-                    <tr>
-                      <td className="fw-bold">User Type</td>
-                      <td>{user.userType}</td>
-                    </tr>
+                    {Object.entries(user).map(([key, value]) => (
+                      <tr
+                        key={key}
+                        className="border-b border-white border-opacity-20"
+                      >
+                        <td className="py-2 px-4 font-bold">
+                          {key.charAt(0).toUpperCase() + key.slice(1)}
+                        </td>
+                        <td className="py-2 px-4">{value}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
-              <center>
+              <div className="text-center mt-6">
                 <button
-                  className="custom-button d-inline-flex align-items-center mt-3"
-                  style={{
-                    backgroundColor: "white",
-                    color: "#ff69b4",
-                    padding: "10px 20px",
-                    borderRadius: "8px",
-                    fontWeight: "bold",
-                    textTransform: "uppercase",
-                    display: "inline-block",
-                    transform: "skewX(-15deg)",
-                    boxShadow: "0 8px 15px rgba(0, 0, 0, 0.15)",
-                    marginLeft: "15px",
-                  }}
+                  className="px-6 py-2 bg-white text-pink-500 font-bold uppercase rounded-lg transform -skew-x-12 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
                   onClick={handleEditClick}
                 >
-                  <span style={{ transform: "skewX(15deg)", color: "#ff69b4" }}>
+                  <span className="inline-block transform skew-x-12">
                     Edit Profile
                   </span>
                 </button>
-              </center>
+              </div>
             </div>
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

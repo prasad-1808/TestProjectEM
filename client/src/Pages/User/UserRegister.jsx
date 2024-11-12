@@ -9,7 +9,7 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
   const [lastName, setLastName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [emailId, setEmailId] = useState("");
-  const [userType, setUserType] = useState("wedding_party"); // Default role
+  const [userType, setUserType] = useState("wedding_party");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
@@ -61,91 +61,75 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
   };
 
   return (
-    <div
-      className="container-fluid d-flex justify-content-center align-items-center"
-      style={{
-        backgroundColor: "#f8f9fa",
-        backgroundImage: "linear-gradient(135deg, #e0eafc, #cfdef3)",
-      }}
-    >
-      <div
-        className="card shadow-lg"
-        style={{
-          maxWidth: "500px",
-          width: "100%",
-          padding: "2rem",
-          borderRadius: "15px",
-          background: "linear-gradient(135deg, #8d0cc8, #9c27b0)",
-          transition: "transform 0.3s ease",
-        }}
-      >
-        <h2 className="text-center mb-4" style={{ color: "#fff" }}>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100">
+      <div className="max-w-md w-full p-8 bg-gradient-to-br from-purple-600 to-pink-500 rounded-2xl shadow-2xl transform transition-all duration-300 ease-in-out hover:scale-105 animate-fadeIn">
+        <h2 className="text-3xl font-bold text-center text-white mb-6">
           User Register
         </h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group p-1 m-2">
-            <label htmlFor="firstName" style={{ color: "white" }}>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="firstName" className="block text-white mb-1">
               First Name:
             </label>
             <input
               type="text"
               id="firstName"
-              className="form-control"
+              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
             />
           </div>
-          <div className="form-group p-1 m-2">
-            <label htmlFor="lastName" style={{ color: "white" }}>
+          <div>
+            <label htmlFor="lastName" className="block text-white mb-1">
               Last Name:
             </label>
             <input
               type="text"
               id="lastName"
-              className="form-control"
+              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
             />
           </div>
-          <div className="form-group p-1 m-2">
-            <label htmlFor="mobileNumber" style={{ color: "white" }}>
+          <div>
+            <label htmlFor="mobileNumber" className="block text-white mb-1">
               Mobile Number:
             </label>
             <input
               type="text"
               id="mobileNumber"
-              className="form-control"
+              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Mobile Number"
               value={mobileNumber}
               onChange={(e) => setMobileNumber(e.target.value)}
               required
             />
           </div>
-          <div className="form-group p-1 m-2">
-            <label htmlFor="emailId" style={{ color: "white" }}>
+          <div>
+            <label htmlFor="emailId" className="block text-white mb-1">
               Email ID:
             </label>
             <input
               type="email"
               id="emailId"
-              className="form-control"
+              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Email ID"
               value={emailId}
               onChange={(e) => setEmailId(e.target.value)}
               required
             />
           </div>
-          <div className="form-group p-1 m-2">
-            <label htmlFor="userType" style={{ color: "white" }}>
+          <div>
+            <label htmlFor="userType" className="block text-white mb-1">
               User Type:
             </label>
             <select
               id="userType"
-              className="form-control"
+              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-300"
               value={userType}
               onChange={(e) => setUserType(e.target.value)}
               required
@@ -154,83 +138,62 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
               <option value="relative">Relative</option>
             </select>
           </div>
-          <div className="form-group p-1 m-2">
-            <label htmlFor="password" style={{ color: "white" }}>
+          <div>
+            <label htmlFor="password" className="block text-white mb-1">
               Password:
             </label>
             <input
               type="password"
               id="password"
-              className="form-control"
+              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <div className="form-group p-1 m-2">
-            <label htmlFor="confirmPassword" style={{ color: "white" }}>
+          <div>
+            <label htmlFor="confirmPassword" className="block text-white mb-1">
               Confirm Password:
             </label>
             <input
               type="password"
               id="confirmPassword"
-              className="form-control"
+              className="w-full px-3 py-2 bg-white bg-opacity-20 rounded-md text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Confirm your Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
-          <center>
+          <div className="text-center">
             <button
               type="submit"
-              className="custom-button d-inline-flex align-items-center"
-              style={{
-                backgroundColor: "white",
-                color: "#ff69b4",
-                padding: "10px 20px",
-                borderRadius: "8px",
-                fontWeight: "bold",
-                textTransform: "uppercase",
-                textDecoration: "none",
-                display: "inline-block",
-                transform: "skewX(-15deg)",
-                boxShadow: "0 8px 15px rgba(0, 0, 0, 0.15)",
-              }}
+              className="px-6 py-2 bg-white text-pink-500 font-bold uppercase rounded-lg transform -skew-x-12 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
             >
-              <span
-                style={{
-                  transform: "skewX(15deg)",
-                  color: "#ff69b4",
-                }}
-              >
-                Register
-              </span>
+              <span className="inline-block transform skew-x-12">Register</span>
             </button>
-          </center>
+          </div>
         </form>
       </div>
 
       <ToastContainer />
 
-      <style>
-        {`
-          .custom-button:hover {
-            transform: scale(1.05) skewX(-15deg);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      <style jsx>{`
+        @keyframes fadeIn {
+          0% {
+            opacity: 0;
+            transform: translateY(20px);
           }
-
-          .card {
-            animation: fadeIn 1.5s ease;
+          100% {
+            opacity: 1;
+            transform: translateY(0);
           }
-
-          @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-          }
-        `}
-      </style>
+        }
+        .animate-fadeIn {
+          animation: fadeIn 1.5s ease;
+        }
+      `}</style>
     </div>
   );
 };

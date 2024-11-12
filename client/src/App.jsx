@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Navbar from "./Components/Navbar"; // Import the Navbar component
 // import Invitation from "./Pages/Invitation";
-import Home from "./Pages/Home";
+import Home from "./Pages/Home.tsx";
 import UserLogin from "./Pages/User/UserLogin";
 import UserRegister from "./Pages/User/UserRegister";
 import UserProfile from "./Pages/User/UserProfile";
