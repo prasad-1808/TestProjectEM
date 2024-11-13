@@ -63,13 +63,63 @@ const loginUser = async (req, res) => {
   }
 };
 
+// Find a user by mobile number
+const findUserByMobileNumber = async (req, res) => {
+  const { mobileNumber } = req.params;
+  try {
+    const user = await prisma.User.findUnique({
+      where: { mobileNumber },
+    });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Error finding user by mobile number" });
+  }
+};
+
+// Find a user by user ID
+const findUserById = async (req, res) => {
+  const { userId } = req.params;
+  const parsedUserId = parseInt(userId, 10);
+  
+  if (isNaN(parsedUserId)) {
+    return res.status(400).json({ error: "Invalid user ID format" });
+  }
+  
+  try {
+    const user = await prisma.User.findUnique({
+      where: { userId: parsedUserId },
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error("Error finding user by ID:", error); // Log the detailed error
+    res.status(500).json({ error: "Error finding user by ID" });
+  }
+};
+
+
+
 // Edit user details
 const editUser = async (req, res) => {
   const { userId } = req.params;
   const { firstName, lastName, mobileNumber, emailId, userType } = req.body;
+
+  // Check if userId is a valid integer
+  if (isNaN(userId)) {
+    return res.status(400).json({ error: "Invalid userId format" });
+  }
+
   try {
+    // Try to update the user in the database
     const user = await prisma.User.update({
-      where: { id: parseInt(userId) },
+      where: { userId: parseInt(userId) },
       data: {
         firstName,
         lastName,
@@ -78,10 +128,14 @@ const editUser = async (req, res) => {
         userType,
       },
     });
+
+    // Return the updated user
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: "Error updating user" });
+    console.error("Error updating user:", error);  // Log the error for debugging
+    res.status(500).json({ error: "Error updating user", details: error.message });
   }
 };
 
-module.exports = { createUser, loginUser, editUser };
+
+module.exports = { createUser, loginUser, findUserByMobileNumber, findUserById, editUser };

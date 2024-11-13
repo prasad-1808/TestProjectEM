@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [userType, setUserType] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,12 +23,20 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
       const response = await api.post("/users/login", {
         mobileNumber,
         password,
-        userType: role,
+        userType,
       });
 
       if (response.status === 200) {
+        // Store token and userType in localStorage
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userType", response.data.userType);
+        // Get user ID using the mobile number
+        const userIdResponse = await api.get(`/users/mobile/${mobileNumber}`);
+        console.log(userIdResponse);
+        if (userIdResponse.status === 200) {
+          localStorage.setItem("userId", userIdResponse.data.userId); // Store userId in localStorage
+        }
+
         setIsLoggedIn(!isLoggedIn);
         toast.success("Login successful!");
         navigate("/invitation");
@@ -37,7 +45,7 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
       if (error.response && error.response.status === 404) {
         toast.error("User not found. Please check your mobile number.");
       } else if (error.response && error.response.status === 401) {
-        toast.error("Invalid credentials or role. Please try again.");
+        toast.error("Invalid credentials or user type. Please try again.");
       } else {
         toast.error("An error occurred during login. Please try again.");
       }
@@ -79,17 +87,17 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="role" className="block text-gray-600 mb-2">
-              Role:
+            <label htmlFor="userType" className="block text-gray-600 mb-2">
+              User Type:
             </label>
             <select
-              id="role"
+              id="userType"
               className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
               required
             >
-              <option value="">Select Role</option>
+              <option value="">Select User Type</option>
               <option value="wedding_party">Wedding Party</option>
               <option value="relative">Relative</option>
             </select>
