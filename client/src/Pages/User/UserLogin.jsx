@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,8 +26,6 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
         userType: role,
       });
 
-      console.log(response);
-
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userType", response.data.userType);
@@ -43,25 +41,22 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
       } else {
         toast.error("An error occurred during login. Please try again.");
       }
-      console.error("Login error:", error);
     }
   };
 
   return (
-    <div className="pt-20 container-fluid flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-100">
-      <div className="card max-w-lg w-full p-8 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-500 shadow-2xl transform transition-all duration-300 ease-in-out animate-fadeIn">
-        <h2 className="text-center mb-6 text-2xl font-bold text-white">
-          User Login
-        </h2>
+    <div className="pt-20 container-fluid mx-auto flex justify-center items-center min-h-screen bg-gradient-to-b from-purple-100 to-pink-100">
+      <div className="max-w-md w-full p-8 rounded-lg shadow-xl bg-white text-center">
+        <h2 className="text-3xl font-bold text-gray-800 mb-8">User Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="mobileNumber" className="block text-white mb-2">
+            <label htmlFor="mobileNumber" className="block text-gray-600 mb-2">
               Mobile Number:
             </label>
             <input
               type="text"
               id="mobileNumber"
-              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Mobile Number"
               autoComplete="off"
               value={mobileNumber}
@@ -70,13 +65,13 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-white mb-2">
+            <label htmlFor="password" className="block text-gray-600 mb-2">
               Password:
             </label>
             <input
               type="password"
               id="password"
-              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -84,12 +79,12 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="role" className="block text-white mb-2">
+            <label htmlFor="role" className="block text-gray-600 mb-2">
               Role:
             </label>
             <select
               id="role"
-              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
               value={role}
               onChange={(e) => setRole(e.target.value)}
               required
@@ -100,45 +95,18 @@ const UserLogin = ({ isLoggedIn, setIsLoggedIn }) => {
             </select>
           </div>
 
-          <div className="text-center mt-6">
-            <p className="text-white mb-4">
-              <Link to="/admin-login" className="text-white hover:underline">
-                Login as Admin
-              </Link>
-            </p>
-          </div>
-
           <div className="text-center">
             <button
               type="submit"
-              className="custom-button inline-flex items-center px-6 py-3 bg-white text-pink-500 font-bold uppercase rounded-lg transform -skew-x-12 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
+              className="w-full px-6 py-3 bg-purple-600 text-white font-bold rounded-lg transition duration-300 hover:bg-purple-700"
             >
-              <span className="transform skew-x-12">Login</span>
+              Login
             </button>
           </div>
         </form>
       </div>
 
       <ToastContainer />
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          0% {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 1.5s ease;
-        }
-        .custom-button:hover {
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-      `}</style>
     </div>
   );
 };

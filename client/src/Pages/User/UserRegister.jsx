@@ -24,7 +24,6 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
     e.preventDefault();
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,12}$/;
-
     if (!passwordRegex.test(password)) {
       toast.error(
         "Password must be 6-12 characters long, contain at least 1 uppercase letter and 1 number."
@@ -61,20 +60,18 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
   };
 
   return (
-    <div className="pt-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100">
-      <div className="max-w-md w-full p-8 bg-gradient-to-br from-purple-600 to-pink-500 rounded-2xl shadow-2xl transform transition-all duration-300 ease-in-out animate-fadeIn">
-        <h2 className="text-3xl font-bold text-center text-white mb-6">
-          User Register
-        </h2>
+    <div className="pt-24 container-fluid mx-auto flex justify-center items-center min-h-screen bg-gradient-to-b from-purple-100 to-pink-100">
+      <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-lg text-center animate-fadeIn md:p-8">
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">User Register</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="firstName" className="block text-white mb-1">
+            <label htmlFor="firstName" className="block text-gray-600 mb-1">
               First Name:
             </label>
             <input
               type="text"
               id="firstName"
-              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -82,13 +79,13 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           </div>
           <div>
-            <label htmlFor="lastName" className="block text-white mb-1">
+            <label htmlFor="lastName" className="block text-gray-600 mb-1">
               Last Name:
             </label>
             <input
               type="text"
               id="lastName"
-              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
@@ -96,13 +93,13 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           </div>
           <div>
-            <label htmlFor="mobileNumber" className="block text-white mb-1">
+            <label htmlFor="mobileNumber" className="block text-gray-600 mb-1">
               Mobile Number:
             </label>
             <input
               type="text"
               id="mobileNumber"
-              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Mobile Number"
               value={mobileNumber}
               onChange={(e) => setMobileNumber(e.target.value)}
@@ -110,13 +107,13 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           </div>
           <div>
-            <label htmlFor="emailId" className="block text-white mb-1">
+            <label htmlFor="emailId" className="block text-gray-600 mb-1">
               Email ID:
             </label>
             <input
               type="email"
               id="emailId"
-              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Email ID"
               value={emailId}
               onChange={(e) => setEmailId(e.target.value)}
@@ -124,12 +121,12 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           </div>
           <div>
-            <label htmlFor="userType" className="block text-white mb-1">
+            <label htmlFor="userType" className="block text-gray-600 mb-1">
               User Type:
             </label>
             <select
               id="userType"
-              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
               value={userType}
               onChange={(e) => setUserType(e.target.value)}
               required
@@ -140,13 +137,13 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             </select>
           </div>
           <div>
-            <label htmlFor="password" className="block text-white mb-1">
+            <label htmlFor="password" className="block text-gray-600 mb-1">
               Password:
             </label>
             <input
               type="password"
               id="password"
-              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Enter your Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -154,25 +151,25 @@ const UserRegister = ({ isLoggedIn, setIsLoggedIn }) => {
             />
           </div>
           <div>
-            <label htmlFor="confirmPassword" className="block text-white mb-1">
+            <label htmlFor="confirmPassword" className="block text-gray-600 mb-1">
               Confirm Password:
             </label>
             <input
               type="password"
               id="confirmPassword"
-              className="w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-300"
               placeholder="Confirm your Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
-          <div className="text-center">
+          <div className="mt-4">
             <button
               type="submit"
-              className="px-6 py-2 bg-white text-pink-500 font-bold uppercase rounded-lg transform -skew-x-12 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
+              className="w-full px-4 py-3 bg-purple-600 text-white font-bold rounded-lg hover:bg-purple-700"
             >
-              <span className="inline-block transform skew-x-12">Register</span>
+              Register
             </button>
           </div>
         </form>
