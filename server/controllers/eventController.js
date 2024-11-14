@@ -1,71 +1,102 @@
 const { prisma } = require("../prismaClient.js");
 
-// Register a new event
-const eventRegister = async (req, res) => {
+// Register a new event with conditional fields based on eventType
+const registerEvent = async (req, res) => {
   const {
     userId,
+    eventType,
     eventName,
-    startDate,
-    endDate,
-    startTime,
-    endTime,
+    eventDate,
+    eventTime,
+    groomName = null,
+    brideName = null,
+    specialPersonName = null,
     place,
     address,
   } = req.body;
+
   try {
+    // Set conditional fields based on eventType
+    const eventData = {
+      eventName,
+      eventDate,
+      eventTime,
+      place,
+      address,
+      groomName: eventType === "marriage" ? groomName : null,
+      brideName: eventType === "marriage" ? brideName : null,
+      specialPersonName: eventType === "birthday" ? specialPersonName : null,
+    };
+
+    // Create Event and associated EventData
     const event = await prisma.event.create({
       data: {
         userId,
-        eventName,
-        startDate,
-        endDate,
-        startTime,
-        endTime,
-        place,
-        address,
+        eventType,
+        eventData: {
+          create: eventData,
+        },
+      },
+      include: {
+        eventData: true,
       },
     });
+
     res.json(event);
   } catch (error) {
+    console.error("Error registering event:", error);
     res.status(500).json({ error: "Error registering event" });
   }
 };
 
-// Edit an existing event
-const editEvent = async (req, res) => {
-  const { eventId } = req.params;
-  const { eventName, startDate, endDate, startTime, endTime, place, address } =
-    req.body;
+// Get all event IDs for a given userId
+const getUserEvents = async (req, res) => {
+  const { userId } = req.params;
+
   try {
-    const event = await prisma.event.update({
-      where: { eventId: parseInt(eventId) },
-      data: {
-        eventName,
-        startDate,
-        endDate,
-        startTime,
-        endTime,
-        place,
-        address,
+    const events = await prisma.event.findMany({
+      where: {
+        userId: parseInt(userId),
+      },
+      select: {
+        eventId: true, // Select only the eventId field
       },
     });
+
+    if (!events.length) {
+      return res.status(404).json({ error: "No events found for this user" });
+    }
+
+    res.json(events);
+  } catch (error) {
+    console.error("Error fetching event IDs:", error);
+    res.status(500).json({ error: "Error fetching event IDs" });
+  }
+};
+
+// Get detailed event data by eventId
+const getEventDataById = async (req, res) => {
+  const { eventId } = req.params;
+
+  try {
+    const event = await prisma.event.findUnique({
+      where: {
+        eventId: parseInt(eventId),
+      },
+      include: {
+        eventData: true, // Fetch associated EventData
+      },
+    });
+
+    if (!event) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+
     res.json(event);
   } catch (error) {
-    res.status(500).json({ error: "Error updating event" });
+    console.error("Error fetching event data:", error);
+    res.status(500).json({ error: "Error fetching event data" });
   }
 };
 
-// Delete an event
-const deleteEvent = async (req, res) => {
-  const { eventId } = req.params;
-  try {
-    await prisma.event.delete({
-      where: { eventId: parseInt(eventId) },
-    });
-    res.json({ message: "Event deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Error deleting event" });
-  }
-};
-
-module.exports = { eventRegister, editEvent, deleteEvent };
+module.exports = { registerEvent, getUserEvents, getEventDataById };

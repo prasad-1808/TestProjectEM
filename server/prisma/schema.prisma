@@ -20,33 +20,48 @@ model User {
   firstName    String
   lastName     String
   mobileNumber String  @unique
-  emailId      String  
+  emailId      String
   userType     String
   password     String
   events       Event[]
 }
 
 model Event {
-  eventId         Int             @id @default(autoincrement())
-  eventName       String
-  eventDate       DateTime
-  eventTime       DateTime
-  place           String
-  address         String
-  userId          Int
-  user            User            @relation(fields: [userId], references: [userId])
-  photoCategories PhotoCategory[]
-  relativePhotos  RelativePhoto[]
-  relatives       Relative[]
+  eventId       Int             @id @default(autoincrement())
+  userId        Int
+  eventType     String
+  user          User            @relation(fields: [userId], references: [userId])
+  eventData     EventData?
+  PhotoCategory PhotoCategory[]
+  Relative      Relative[]
+  RelativePhoto RelativePhoto[]
 }
 
+model EventData {
+  eventDataId       Int             @id @default(autoincrement())
+  eventId           Int             @unique
+  eventName         String
+  eventDate         DateTime
+  eventTime         DateTime
+  groomName         String
+  brideName         String
+  specialPersonName String
+  place             String
+  address           String
+  photoCategories   PhotoCategory[]
+  relativePhotos    RelativePhoto[]
+  relatives         Relative[]
+  event             Event           @relation(fields: [eventId], references: [eventId])
+}
 
 model PhotoCategory {
-  categoryId   Int     @id @default(autoincrement())
-  categoryName String // e.g., "Invitation", "Event Photos", "Relatives"
-  eventId      Int
-  event        Event   @relation(fields: [eventId], references: [eventId])
-  photos       Photo[]
+  categoryId           Int        @id @default(autoincrement())
+  categoryName         String // e.g., "Invitation", "Event Photos", "Relatives"
+  eventId              Int
+  event                Event      @relation(fields: [eventId], references: [eventId])
+  photos               Photo[]
+  EventData            EventData? @relation(fields: [eventDataEventDataId], references: [eventDataId])
+  eventDataEventDataId Int?
 }
 
 model Photo {
@@ -58,20 +73,24 @@ model Photo {
 }
 
 model Relative {
-  relativeId   Int             @id @default(autoincrement())
-  name         String
-  mobileNumber String
-  eventId      Int
-  event        Event           @relation(fields: [eventId], references: [eventId])
-  photos       RelativePhoto[]
+  relativeId           Int             @id @default(autoincrement())
+  name                 String
+  mobileNumber         String
+  eventId              Int
+  event                Event           @relation(fields: [eventId], references: [eventId])
+  photos               RelativePhoto[]
+  EventData            EventData?      @relation(fields: [eventDataEventDataId], references: [eventDataId])
+  eventDataEventDataId Int?
 }
 
 model RelativePhoto {
-  id         Int      @id @default(autoincrement())
-  relativeId Int
-  relative   Relative @relation(fields: [relativeId], references: [relativeId])
-  eventId    Int
-  event      Event    @relation(fields: [eventId], references: [eventId])
-  photoId    Int
-  photo      Photo    @relation(fields: [photoId], references: [photoId])
+  id                   Int        @id @default(autoincrement())
+  relativeId           Int
+  relative             Relative   @relation(fields: [relativeId], references: [relativeId])
+  eventId              Int
+  event                Event      @relation(fields: [eventId], references: [eventId])
+  photoId              Int
+  photo                Photo      @relation(fields: [photoId], references: [photoId])
+  EventData            EventData? @relation(fields: [eventDataEventDataId], references: [eventDataId])
+  eventDataEventDataId Int?
 }
