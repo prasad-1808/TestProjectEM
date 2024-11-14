@@ -29,10 +29,8 @@ model User {
 model Event {
   eventId         Int             @id @default(autoincrement())
   eventName       String
-  startDate       DateTime
-  endDate         DateTime
-  startTime       DateTime
-  endTime         DateTime
+  eventDate       DateTime
+  eventTime       DateTime
   place           String
   address         String
   userId          Int
